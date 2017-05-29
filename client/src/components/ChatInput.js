@@ -8,6 +8,7 @@ type State = {
 type Props = {
   style?: Object,
   onSubmit: (message: MessageType) => void,
+  username: string,
 };
 
 class ChatInput extends Component {
@@ -29,9 +30,13 @@ class ChatInput extends Component {
 
   handleSubmit = (e: Object) => {
     e.preventDefault();
-    const newMessage = {
-      userName: "userName-placeholder",
+    const newUserMessage = {
+      userName: this.props.username,
       text: this.state.messageText,
+    };
+    const newMessage = {
+      type: "USER_MESSAGE",
+      content: newUserMessage,
     };
     this.props.onSubmit(newMessage);
     this.setState({

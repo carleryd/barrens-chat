@@ -2,12 +2,27 @@
 import React, { Component } from "react";
 import ChatMessages from "./ChatMessages";
 import ChatInput from "./ChatInput";
-import type { MessageType } from "../types/ChatTypes";
+import Login from "./Login";
+import {
+  SystemType,
+} from "../types/ChatTypes";
+import type {
+  MessageType
+} from "../types/ChatTypes";
+import {
+  SocketTextMessage,
+} from "../types/SocketTypes";
+import type {
+  SocketMessage,
+} from "../types/SocketTypes";
 
 type State = {
   messages: Array<MessageType>,
+  username: ?string,
 };
-type Props = {};
+type Props = {
+  websocket: Object,
+};
 
 class Chat extends Component {
   state: State
@@ -17,12 +32,58 @@ class Chat extends Component {
 
     this.state = {
       messages: [],
+      username: null,
     };
+
+    this.props.websocket.addEventListener("message", (e: Object) => {
+      // The data is simply the message that we're sending back
+      const newJSONObject = JSON.parse(e.data);
+      const newJSONData = newJSONObject;
+      console.log("received new data", newJSONData);
+      switch (newJSONData.type) {
+        case "TEXT_MESSAGE":
+          {
+            const newMessage = newJSONData.data;
+            this.setState({
+              messages: this.state.messages.concat(newMessage),
+            });
+          }
+          break;
+        case "USER_CONNECTIONS":
+          break;
+        default:
+          {
+            console.error("Received invalid socket MESSAGE_TYPE");
+          }
+      }
+    });
   }
 
   addMessage = (message: MessageType) => {
+    const socketMessage = {
+      type: "TEXT_MESSAGE",
+      data: message,
+    };
+    const JSONSocketObject = JSON.stringify(socketMessage);
+    this.props.websocket.send(JSONSocketObject);
+  }
+
+  onUsernamePicked = (username: string) => {
+    const newMessage: MessageType = {
+      type: SystemType,
+      content: {
+        info: `${username} has joined the chat!`,
+      },
+    };
+    const socketMessage: SocketMessage = {
+      type: SocketTextMessage,
+      data: newMessage,
+    };
+    const JSONSocketObject = JSON.stringify(socketMessage);
+    this.props.websocket.send(JSONSocketObject);
+
     this.setState({
-      messages: this.state.messages.concat([message]),
+      username: username,
     });
   }
 
@@ -38,20 +99,33 @@ class Chat extends Component {
           maxHeight: 600,
         }}
       >
-        <ChatMessages
+        <div
           style={{
+            display: "flex",
             flexGrow: 1,
-            borderWidth: 1,
-            borderBottomWidth: 0,
+            borderWidth: "1px 1px 1px",
+            borderBottomWidth: this.state.username != null ? 0 : 1,
             borderColor: "rgb(204, 204, 204)",
             borderStyle: "solid",
             padding: 10,
           }}
-          messages={this.state.messages}
-        />
-        <ChatInput
-          onSubmit={this.addMessage}
-        />
+        >
+          { this.state.username != null
+              ? <ChatMessages
+                messages={this.state.messages}
+              />
+              : <Login
+                onUsernamePicked={this.onUsernamePicked}
+              />
+            }
+        </div>
+        { this.state.username != null
+            ? <ChatInput
+              onSubmit={this.addMessage}
+              username={this.state.username}
+            />
+            : null
+        }
       </div>
     );
   }
