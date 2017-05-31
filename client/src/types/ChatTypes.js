@@ -1,22 +1,26 @@
 //@flow
-export const UserType = "USER_MESSAGE";
-export const SystemType = "SYSTEM_MESSAGE";
-export type ChatType = typeof UserType | typeof SystemType;
+export const UserTextType = "USER_TEXT";
+export const UserInfoType = "USER_INFO";
+export type ChatType = typeof UserTextType | typeof UserInfoType;
 
-export type UserContent = {
-  userName: string,
+export type UserTextContent = {
+  username: string,
   text: string,
 };
 
-export type SystemContent = {
-  info: string,
+export const UserConnected = "USER_CONNECTED";
+export const UserDisconnected = "USER_DISCONNECTED";
+export type UserInfoStatus = typeof UserConnected | typeof UserDisconnected;
+export type UserInfoContent = {
+  username: string,
+  status: UserInfoStatus,
 };
 
 export type ChatContent =
-  UserContent |
-  SystemContent;
+  UserTextContent |
+  UserInfoContent;
 
-export type MessageType = {
+export type ChatMessage = {
   type: ChatType,
   content: ChatContent,
 };

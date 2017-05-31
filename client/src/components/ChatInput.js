@@ -1,14 +1,19 @@
 //@flow
 import React, { Component } from "react";
-import type { MessageType } from "../types/ChatTypes";
+import type {
+  UserTextData,
+} from "../types/ClientMessage";
+import type {
+  User,
+} from "../types/User";
 
 type State = {
   messageText: string,
 };
 type Props = {
   style?: Object,
-  onSubmit: (message: MessageType) => void,
-  username: string,
+  onSubmit: (message: UserTextData) => void,
+  user: ?User,
 };
 
 class ChatInput extends Component {
@@ -30,18 +35,19 @@ class ChatInput extends Component {
 
   handleSubmit = (e: Object) => {
     e.preventDefault();
-    const newUserMessage = {
-      userName: this.props.username,
-      text: this.state.messageText,
-    };
-    const newMessage = {
-      type: "USER_MESSAGE",
-      content: newUserMessage,
-    };
-    this.props.onSubmit(newMessage);
-    this.setState({
-      messageText: "",
-    });
+    if (this.props.user != null && this.props.user.id != null) {
+      const newChatMessage: UserTextData = {
+        id: this.props.user.id,
+        username: this.props.user.username,
+        text: this.state.messageText,
+      };
+      this.props.onSubmit(newChatMessage);
+      this.setState({
+        messageText: "",
+      });
+    } else {
+      console.error("User without id trying to post message");
+    }
   }
 
   render() {

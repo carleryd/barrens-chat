@@ -1,43 +1,41 @@
 //@flow
 import React from "react";
-import type {
-  MessageType,
-  UserContent,
-  SystemContent,
-  ChatContent,
-  ChatType,
-} from "../types/ChatTypes";
 import {
-  UserType,
-  SystemType,
-} from "../types/ChatTypes";
+  UserText,
+} from "../types/ClientMessage";
+import type {
+  UserTextData,
+} from "../types/ClientMessage";
 
 type Input = {
-  messages: Array<MessageType>,
+  messages: Array<UserTextData>,
   style?: Object,
 };
 
 const ChatMessages = ({ messages, style }: Input) => {
-  const renderUserMessage = (content: Object, i: number) => {
-    return <p key={`message-${i}`}>
-      <b>{content.userName}: </b>{content.text}
+  const renderUserTextMessage = (content: UserTextContent, i: number) => {
+    return <p
+      key={`message-${i}`}
+      style={{ color: "white" }}
+    >
+      <b>{content.username}: </b>{content.text}
     </p>;
   };
-  const renderSystemMessage = (content: Object, i: number) => {
-    return <p key={`message-${i}`}>
-      <i>{content.info}</i>
-    </p>;
-  };
+  // const renderUserInfoMessage = (content: UserInfoContent, i: number) => {
+  //   return <p
+  //     key={`message-${i}`}
+  //     style={{ color: "white" }}
+  //   >
+  //     <i><b>{content.username}</b> has joined the chat!</i>
+  //   </p>;
+  // };
   return (
     <div style={style}>
       {messages.map((message, i) => {
-        switch (message.type) {
-          case UserType:
-            return renderUserMessage(message.content, i);
-          case SystemType:
-            return renderSystemMessage(message.content, i);
-          default:
-        }
+        // let messageType = message.type;
+
+        console.log("render user message", message);
+        return renderUserTextMessage(message, i);
       })}
     </div>
   );
