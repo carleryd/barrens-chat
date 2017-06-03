@@ -9,6 +9,10 @@ if(process.env.NODE_ENV == "production") {
   console.log = () => {}; 
 }
 
+if (typeof(PhusionPassenger) != 'undefined') {
+    PhusionPassenger.configure({ autoInstall: false });
+}
+
 const app = express();
 app.use(express.static("public"));
 
@@ -17,7 +21,12 @@ app.use(express.static("public"));
  * This port is then used by client to communicate over WebSocket.
  */
 const server: Object = http.createServer(app);
-server.listen(process.env.PORT || 4000, () => {});
+
+if (typeof(PhusionPassenger) != 'undefined') {
+  server.listen('passenger');
+} else {
+  server.listen(process.env.PORT || 4000, () => {});
+}
 
 const WebSocketServer = require("websocket").server;
 const wsServer = new WebSocketServer({

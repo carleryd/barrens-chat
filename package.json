@@ -13,8 +13,8 @@
     "nodemon": "^1.11.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "websocket": "^1.0.24",
-    "webpack": "^2.5.1"
+    "webpack": "^2.5.1",
+    "websocket": "^1.0.24"
   },
   "devDependencies": {
     "flow-babel-webpack-plugin": "^1.0.1"
