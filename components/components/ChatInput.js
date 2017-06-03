@@ -58,6 +58,7 @@ class ChatInput extends Component {
             <div className="input-group">
               <input
                 style={{ borderRadius: 0 }}
+                autoFocus={true}
                 className="form-control"
                 value={this.state.messageText}
                 onChange={this.updateMessage}

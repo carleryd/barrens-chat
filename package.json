@@ -23,7 +23,7 @@
   "version": "1.0.0",
   "main": "webpack.config.js",
   "scripts": {
-    "start": "webpack-dev-server --progress --colors",
+    "start": "PORT=4000 webpack-dev-server --progress --colors",
     "server": "nodemon server.js --exec babel-node --presets es2015,stage-2",
     "production": "webpack && NODE_ENV=production npm run server",
     "test": "echo \"Error: no test specified\" && exit 1"

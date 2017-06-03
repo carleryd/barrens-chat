@@ -58,6 +58,7 @@ class Login extends Component {
           }}
           placeholder={"Pick a username"}
           className="form-control"
+          autoFocus={true}
           onChange={this.updateUsername}
         />
         <button
