@@ -13,11 +13,11 @@
     "nodemon": "^1.11.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
-    "flow-babel-webpack-plugin": "^1.0.1",
-    "websocket": "^1.0.24"
+    "websocket": "^1.0.24",
+    "webpack": "^2.5.1"
   },
   "devDependencies": {
-    "webpack": "^2.5.1"
+    "flow-babel-webpack-plugin": "^1.0.1"
   },
   "name": "chat",
   "version": "1.0.0",
@@ -25,7 +25,7 @@
   "scripts": {
     "start": "webpack-dev-server --progress --colors",
     "server": "nodemon server.js --exec babel-node --presets es2015,stage-2",
-    "production": "NODE_ENV=production nodemon server.js --exec babel-node --presets es2015,stage-2",
+    "production": "webpack && NODE_ENV=production npm run server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

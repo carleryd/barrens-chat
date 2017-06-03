@@ -9627,11 +9627,12 @@ var App = function (_Component) {
       _this.state.websocket.send(JSONSocketMessage);
     };
 
+    var websocketUrl = "ws://0.0.0.0:4000";
     _this.state = {
       user: null,
       users: [],
       chatMessages: [],
-      websocket: new WebSocket('ws://localhost:4000', 'echo-protocol')
+      websocket: new WebSocket(websocketUrl, 'echo-protocol')
     };
 
     _this.state.websocket.addEventListener("message", function (e) {
