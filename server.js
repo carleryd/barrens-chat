@@ -28,6 +28,7 @@ if (typeof(PhusionPassenger) != 'undefined') {
   server.listen(process.env.PORT || 4000, () => {});
 }
 
+
 const WebSocketServer = require("websocket").server;
 const wsServer = new WebSocketServer({
     httpServer: server

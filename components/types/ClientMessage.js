@@ -1,7 +1,7 @@
 //@flow
 import type {
   User,
-} from "./Users";
+} from "./User";
 export const UserText = "USER_TEXT";
 export const UserConnected = "USER_CONNECTED";
 export const UserDisconnected = "USER_DISCONNECTED";
@@ -17,10 +17,7 @@ export type UserTextData = {
   id: number,
   text: string,
 };
-export type UserConnectedData = {
-  id: number,
-  username: string,
-};
+export type UserConnectedData = User;
 export type UserDisconnectedData = {
   id: number,
 };

@@ -9967,6 +9967,7 @@ var ChatInput = function (_Component) {
               { className: "input-group" },
               _react2.default.createElement("input", {
                 style: { borderRadius: 0 },
+                autoFocus: true,
                 className: "form-control",
                 value: this.state.messageText,
                 onChange: this.updateMessage
@@ -10137,6 +10138,7 @@ var Login = function (_Component) {
           },
           placeholder: "Pick a username",
           className: "form-control",
+          autoFocus: true,
           onChange: this.updateUsername
         }),
         _react2.default.createElement(

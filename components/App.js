@@ -45,7 +45,10 @@ class App extends Component {
   constructor(props: Props) {
     super(props);
 
-    const websocketUrl = "ws://0.0.0.0:4000";
+    const prodUrl = `barrenschat.eu-2.evennode.com`;
+    const devUrl = "localhost:4000";
+    const url = prodUrl; // TODO
+    const websocketUrl = `ws://${url}`;
     this.state = {
       user: null,
       users: [],
