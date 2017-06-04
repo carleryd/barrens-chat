@@ -9,6 +9,7 @@ if(process.env.NODE_ENV == "production") {
   console.log = () => {}; 
 }
 
+// $FlowFixMe
 if (typeof(PhusionPassenger) != 'undefined') {
     PhusionPassenger.configure({ autoInstall: false });
 }

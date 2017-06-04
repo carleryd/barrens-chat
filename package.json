@@ -25,7 +25,8 @@
   "scripts": {
     "start": "webpack-dev-server --progress --colors",
     "server": "nodemon server.js --exec babel-node --presets es2015,stage-2",
-    "production": "webpack && NODE_ENV=production npm run server",
+    "webpack-production": "webpack -p --define process.env.NODE_ENV='\"production\"' --progress --colors",
+    "production": "npm run webpack-production && NODE_ENV=production npm run server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

@@ -31,6 +31,7 @@ import type {
   User,
 } from "./types/User";
 
+
 type State = {
   user: ?User,
   users: Array<UserConnectedData>,
@@ -47,7 +48,7 @@ class App extends Component {
 
     const prodUrl = `barrenschat.eu-2.evennode.com`;
     const devUrl = "localhost:4000";
-    const url = prodUrl; // TODO
+    const url = process.env.NODE_ENV === "production" ? prodUrl : devUrl;
     const websocketUrl = `ws://${url}`;
     this.state = {
       user: null,
