@@ -48,6 +48,7 @@ class Chat extends Component {
         <div
           style={{
             display: "flex",
+            flexDirection: "column-reverse",
             flexGrow: 1,
             borderWidth: 1,
             borderBottomWidth: this.state.username != null ? 0 : 1,
